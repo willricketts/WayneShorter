@@ -4,26 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var dburi = require('./config/db');
-
-var app = express();
-
-var mongoose = require('mongoose');
-mongoose.connect(dburi, function(err) {
-  if(err) {
-    console.log('Could not connect to DB: ' + err);
-  }
-  else {
-    console.log('Connected to DB')
-  }
-});
-
-var Link = require('./schema/Link');
-
 var shortId = require('shortid');
+var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,14 +22,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*
-app.use('/', routes);
-app.use('/users', users);
-*/
+// Require Link schema
+var Link = require('./schema/Link');
 
+// Connect to mongoLab
+var mongoose = require('mongoose');
+mongoose.connect(dburi, function(err) {
+  if(err) {
+    console.log('Could not connect to DB: ' + err);
+  }
+  else {
+    console.log('Connected to DB')
+  }
+});
+
+//set up URL validator
 var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 var regex = new RegExp(expression)
 
+// Create shortlink
 app.post('/shorten', function(req, res, next) {
   var b = req.body;
 
@@ -72,6 +68,7 @@ app.post('/shorten', function(req, res, next) {
   }
 });
 
+// Consume shortlink
 app.get('/:identifier', function(req, res, next) {
   Link.findOne({ identifier: req.params.identifier }, function(err, link) {
     if(err) {
