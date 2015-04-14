@@ -39,7 +39,7 @@ var regex = new RegExp(expression)
 
 // Root route
 app.get('/', function(req, res, next) {
-  res.render('views/index');
+  res.render('index', { title: 'WayneShorter'});
 });
 
 // Create shortlink
