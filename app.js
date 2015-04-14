@@ -22,8 +22,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Require Link schema
+// Require Schemas
 var Link = require('./schema/Link');
+var Log = require('./schema/Log');
 
 // Connect to mongoLab
 var mongoose = require('mongoose');
