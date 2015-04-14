@@ -68,7 +68,7 @@ app.post('/shorten', function(req, res, next) {
   else {
     Log.create({
       origin: req.connection.remoteAddress,
-      message: 'Invalid URL submitted: ' + req.body.payload
+      message: 'Invalid URL submitted: ' + b.payload
     }, function(err, log) {
       if(err) {
         res.send('whoops');
