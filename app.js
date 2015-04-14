@@ -59,7 +59,15 @@ app.post('/shorten', function(req, res, next) {
     })
   }
   else {
-    res.send('Invalid URL');
+    Log.create({
+      origin: req.connection.remoteAddress;,
+      message: 'Invalid URL submitted: ' + req.body.payload
+    }, function(err, log) {
+      if(err) {
+        res.send('whoops');
+      }
+      res.send('Invalid URL');
+    });
   }
 });
 
