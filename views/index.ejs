@@ -26,7 +26,6 @@
             data: {payload: $('#field').val() },
           }).done(function(data) {
             var response = JSON.parse(data);
-            alert(data);
             if(data == 'Invalid URL') {
               //BAD URL
               $("#failure").show();
