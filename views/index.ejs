@@ -52,6 +52,9 @@
                 $("#createShortlink").hide();
                 $("#outputField").val(window.location.host + '/' + response.identifier);
                 $("#success").show();
+                $("#outputField").on("click", function () {
+                  $(this).select();
+                });
               }
             });
           }
