@@ -25,6 +25,8 @@
             url: 'shorten',
             data: {payload: $('#field').val() },
           }).done(function(data) {
+            var response = JSON.parse(data);
+            alert(data);
             if(data == 'Invalid URL') {
               //BAD URL
               $("#failure").show();
@@ -33,6 +35,7 @@
               //GOOD URL
               $("#emptyField").hide();
               $("#createShortlink").hide();
+              $("#newLink").text(window.location.host + '/' + response.identifier);
               $("#success").show();
             }
           });
@@ -47,7 +50,7 @@
     </div>
 
     <div id="success">
-      <h1>Success</h1>
+      <h2 id="newLink"></h1>
     </div>
 
     <div id="failure">
