@@ -11,6 +11,8 @@
   <body>
     <script>
     $( document ).ready(function() {
+      $("#success").hide();
+      $("#failure").hide();
       $("#submit").click(function() {
         $.ajax({
           type: "POST",
@@ -18,21 +20,29 @@
           data: {payload: $('#field').val() },
         }).done(function(data) {
           if(data == 'Invalid URL') {
-            //BAD REQUEST
+            $("#createShortlink").hide();
+            $("#failure").show();
           }
           else {
-            //GOOD REQUEST
+            $("#createShortlink").hide();
+            $("#success").show();
           }
         });
       });
     });
     </script>
     <h1><%= title %></h1>
-    <input type="text" placeholder="Linkz" id="field">
-    <button class="btn btn-large btn-primary" id="submit">Play that Jazz!</button>
-    <!--<form method="POST" action="/shorten" class="form">
-      <input type="text" name="payload" placeholder="Links and stuff">
-      <input type="submit"> -->
-    </form>
+    <div id="createShortlink">
+      <input type="text" placeholder="Linkz" id="field">
+      <button class="btn btn-large btn-primary" id="submit">Play that Jazz!</button>
+    </div>
+
+    <div id="success">
+      <h1>Success</h1>
+    </div>
+
+    <div id="failure">
+      <h1>Failure</h1>
+    </div>
   </body>
 </html>
