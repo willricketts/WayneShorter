@@ -50,11 +50,9 @@ app.post('/shorten', function(req, res, next) {
   }
 
   if(req.body.payload.match(regex)) {
-    var x = shortId.generate();
     Link.create({
       owner: req.connection.remoteAddress,
       payload: req.body.payload,
-      identifier: x
     }, function(err, link) {
       if(err) {
         res.send('whoops');
