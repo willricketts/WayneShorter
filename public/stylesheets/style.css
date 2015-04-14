@@ -29,13 +29,29 @@ a {
   border-radius: 5px;
 }
 
+#outputField {
+  color: #999;
+  width: 500px;
+  font-size: 28px;
+  font-family: 'Sanchez', serif;
+  padding: 15px;
+  margin-left:40px;
+  border-color: #5848B0;
+  border-width: 10px;
+  border-style: solid;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #FFFEE6;
+}
+
 #submit {
   font-size: 48px;
   display: block;
   margin-top: 50px;
   font-family: 'Sanchez', serif;
   background-color: #5848B0;
-  border-color: #7D71BD;
+  border: 0;
   padding: 15px;
   margin-left: 100px;
 }
@@ -49,7 +65,14 @@ a {
 #success {
   font-family: 'Sanchez', serif;
   margin-top: 50px;
+  margin-left: 0px;
+}
+
+#successFlash {
+  font-family: 'Sanchez', serif;
+  margin-top: 50px;
   margin-left: 40px;
+  width: 550px;
 }
 
 #failure {

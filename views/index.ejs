@@ -50,7 +50,7 @@
                 $("#failure").hide();
                 $("#emptyField").hide();
                 $("#createShortlink").hide();
-                $("#newLink").text(window.location.host + '/' + response.identifier);
+                $("#outputField").val(window.location.host + '/' + response.identifier);
                 $("#success").show();
               }
             });
@@ -65,7 +65,8 @@
     </div>
 
     <div id="success">
-      <h1 id="newLink">Success</h1>
+      <input type="text" id="outputField">
+      <h1 id="successFlash">Smooth notes, brother. Here's your shortened link.<h1>
     </div>
 
     <div id="failure">
