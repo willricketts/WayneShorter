@@ -49,9 +49,7 @@ app.post('/shorten', function(req, res, next) {
   }*/
 
   var prefix = 'http://';
-  var ftpPrefix = 'ftp://';
-  if ((req.body.payload.substr(0, prefix.length) !== prefix) || (req.body.payload.substr(0, ftpPrefix.length) !== ftpPrefix))
-  {
+  if (req.body.payload.substr(0, prefix.length) !== prefix) {
     req.body.payload = prefix + req.body.payload;
   }
 
