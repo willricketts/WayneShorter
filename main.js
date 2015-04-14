@@ -37,6 +37,11 @@ mongoose.connect(dburi, function(err) {
 var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 var regex = new RegExp(expression)
 
+// Root route
+app.get('/', function(req, res, next) {
+  res.render('views/index');
+});
+
 // Create shortlink
 app.post('/shorten', function(req, res, next) {
   var b = req.body;
