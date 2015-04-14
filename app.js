@@ -7,8 +7,19 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var dburi = require('./config/db');
 
 var app = express();
+
+var mongoose = require('mongoose');
+mongoose.connect(dburi, function(err) {
+  if(err) {
+    console.log('Could not connect to DB: ' + err);
+  }
+  else {
+    console.log('Connected to DB')
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
