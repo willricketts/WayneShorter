@@ -58,7 +58,10 @@ app.post('/shorten', function(req, res, next) {
       payload: req.body.payload,
     }, function(err, link) {
       if(err) {
-        res.send('whoops');
+        res.send('whoops: ' + err);
+      }
+      else if(!link) {
+        res.send(500);
       }
       res.send(JSON.stringify(link));
     })
@@ -82,7 +85,14 @@ app.get('/:identifier', function(req, res, next) {
     if(err) {
       res.send('whoops');
     }
-    res.redirect(link.payload);
+    if(!link) {
+      res.redirect('/');
+    }
+
+    if(link) {
+      res.redirect(link.payload);
+    }
+
   });
 });
 
