@@ -24,6 +24,9 @@ a {
   border-color: #5848B0;
   border-width: 10px;
   border-style: solid;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 #submit {
