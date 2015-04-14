@@ -60,7 +60,7 @@ app.post('/shorten', function(req, res, next) {
   }
   else {
     Log.create({
-      origin: req.connection.remoteAddress;,
+      origin: req.connection.remoteAddress,
       message: 'Invalid URL submitted: ' + req.body.payload
     }, function(err, log) {
       if(err) {
