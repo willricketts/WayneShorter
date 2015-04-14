@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var dburi = require('./config/db');
 var shortId = require('shortid');
+var validator = require('validator');
 var app = express();
 
 // view engine setup
@@ -33,10 +34,6 @@ mongoose.connect(dburi, function(err) {
   }
 });
 
-//set up URL validator
-var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-var regex = new RegExp(expression)
-
 // Root route
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'WayneShorter'});
@@ -45,13 +42,13 @@ app.get('/', function(req, res, next) {
 // Create shortlink
 app.post('/shorten', function(req, res, next) {
   var b = req.body;
-  var prefix = 'http://';
+  /*var prefix = 'http://';
   if (b.payload.substr(0, prefix.length) !== prefix)
   {
     b.payload = prefix + b.payload;
-  }
+  }*/
 
-  if(b.payload.match(regex)) {
+  if(validator.isURL(b.payload)) {
     Link.create({
       owner: req.connection.remoteAddress,
       payload: b.payload,
@@ -73,7 +70,7 @@ app.post('/shorten', function(req, res, next) {
       if(err) {
         res.send('whoops');
       }
-      res.send('Invalid URL');
+      res.json({ error: 'Invalid URL' });
     });
   }
 });

@@ -10,46 +10,50 @@
   </head>
   <body>
     <script>
-    $( document ).ready(function() {
-      $("#success").hide();
-      $("#failure").hide();
-      $("#emptyField").hide();
-      $("#submit").click(function() {
-        if($("#field").val() == "") {
-          //SUBMITTED EMPTY STRING
-          $("#emptyField").show();
-        }
-        else {
-          $.ajax({
-            type: "POST",
-            url: 'shorten',
-            data: {payload: $('#field').val() },
-          }).done(function(data) {
-            var response = JSON.parse(data);
-            if(data == 'Invalid URL') {
-              //BAD URL
-              $("#failure").show();
-            }
-            else {
-              //GOOD URL
-              $("#emptyField").hide();
-              $("#createShortlink").hide();
-              $("#newLink").text(window.location.host + '/' + response.identifier);
-              $("#success").show();
-            }
-          });
-        }
+      $( document ).ready(function() {
+        $("#success").hide();
+        $("#failure").hide();
+        $("#emptyField").hide();
+        $("#submit").click(function() {
+          if($("#field").val() == "") {
+            //SUBMITTED EMPTY STRING
+            $("#emptyField").show();
+          }
+          else {
+            $.ajax({
+              type: "POST",
+              url: 'shorten',
+              data: { payload: $('#field').val() },
+            }).done(function(data) {
+              console.log(data);
+              if(data.error) {
+                //BAD URL
+
+                $("#failure").show();
+              }
+              else {
+                console.log(data);
+                //GOOD URL
+                var response = JSON.parse(data);
+                $("#failure").hide();
+                $("#emptyField").hide();
+                $("#createShortlink").hide();
+                $("#newLink").text(window.location.host + '/' + response.identifier);
+                $("#success").show();
+              }
+            });
+          }
+        });
       });
-    });
     </script>
     <h1><%= title %></h1>
     <div id="createShortlink">
-      <input type="text" placeholder="Linkz" id="field">
+      <input type="text" placeholder="Gimme some notes to play, man!" id="field">
       <button class="btn btn-large btn-primary" id="submit">Play that Jazz!</button>
     </div>
 
     <div id="success">
-      <h2 id="newLink"></h1>
+      <h1 id="newLink">Success</h1>
     </div>
 
     <div id="failure">
@@ -57,7 +61,7 @@
     </div>
 
     <div id="emptyField">
-      <h1>Empty FIeld</h1>
+      <h1>Empty Field</h1>
     </div>
   </body>
 </html>
