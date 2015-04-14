@@ -13,21 +13,30 @@
     $( document ).ready(function() {
       $("#success").hide();
       $("#failure").hide();
+      $("#emptyField").hide();
       $("#submit").click(function() {
-        $.ajax({
-          type: "POST",
-          url: 'shorten',
-          data: {payload: $('#field').val() },
-        }).done(function(data) {
-          if(data == 'Invalid URL') {
-            $("#createShortlink").hide();
-            $("#failure").show();
-          }
-          else {
-            $("#createShortlink").hide();
-            $("#success").show();
-          }
-        });
+        if($("#field").val() == "") {
+          //SUBMITTED EMPTY STRING
+          $("#emptyField").show();
+        }
+        else {
+          $.ajax({
+            type: "POST",
+            url: 'shorten',
+            data: {payload: $('#field').val() },
+          }).done(function(data) {
+            if(data == 'Invalid URL') {
+              //BAD URL
+              $("#failure").show();
+            }
+            else {
+              //GOOD URL
+              $("#emptyField").hide();
+              $("#createShortlink").hide();
+              $("#success").show();
+            }
+          });
+        }
       });
     });
     </script>
@@ -43,6 +52,10 @@
 
     <div id="failure">
       <h1>Failure</h1>
+    </div>
+
+    <div id="emptyField">
+      <h1>Empty FIeld</h1>
     </div>
   </body>
 </html>
