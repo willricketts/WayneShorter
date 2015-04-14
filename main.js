@@ -45,17 +45,16 @@ app.get('/', function(req, res, next) {
 // Create shortlink
 app.post('/shorten', function(req, res, next) {
   var b = req.body;
-
   var prefix = 'http://';
-  if (req.body.payload.substr(0, prefix.length) !== prefix)
+  if (b.payload.substr(0, prefix.length) !== prefix)
   {
-    req.body.payload = prefix + req.body.payload;
+    b.payload = prefix + b.payload;
   }
 
-  if(req.body.payload.match(regex)) {
+  if(b.payload.match(regex)) {
     Link.create({
       owner: req.connection.remoteAddress,
-      payload: req.body.payload,
+      payload: b.payload,
     }, function(err, link) {
       if(err) {
         res.send('whoops: ' + err);
