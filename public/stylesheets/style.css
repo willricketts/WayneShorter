@@ -39,3 +39,23 @@ a {
   margin-bottom: 50px;
   font-size: 102px;
 }
+
+#success {
+  font-family: 'Sanchez', serif;
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+#failure {
+  font-family: 'Sanchez', serif;
+  margin-top: 50px;
+  margin-left: 40px;
+  width: 550px;
+}
+
+#emptyField {
+  font-family: 'Sanchez', serif;
+  margin-top: 50px;
+  margin-left: 40px;
+  width: 550px;
+}

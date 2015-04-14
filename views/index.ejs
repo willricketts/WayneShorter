@@ -19,6 +19,7 @@
         $("#submit").click(function() {
           if($("#field").val() == "") {
             //SUBMITTED EMPTY STRING
+            $("#failure").hide();
             $("#emptyField").show();
           }
           else {
@@ -30,7 +31,7 @@
               console.log(data);
               if(data.error) {
                 //BAD URL
-
+                $("#emptyField").hide();
                 $("#failure").show();
               }
               else {
@@ -59,11 +60,11 @@
     </div>
 
     <div id="failure">
-      <h1>Failure</h1>
+      <h1>Aww come on man. Looks like you gave me a bad URL to play.</h1>
     </div>
 
     <div id="emptyField">
-      <h1>Empty Field</h1>
+      <h1>You didn't give me any notes to play.</h1>
     </div>
   </body>
 </html>
