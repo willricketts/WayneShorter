@@ -21,6 +21,10 @@ mongoose.connect(dburi, function(err) {
   }
 });
 
+var Link = require('./schema/Link');
+
+var shortId = require('shortid');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -38,17 +42,43 @@ app.use('/', routes);
 app.use('/users', users);
 */
 
-app.get('/', function(req, res, next) {
-
-});
+var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+var regex = new RegExp(expression)
 
 app.post('/shorten', function(req, res, next) {
   var b = req.body;
-  console.log(b);
+
+  var prefix = 'http://';
+  if (req.body.payload.substr(0, prefix.length) !== prefix)
+  {
+    req.body.payload = prefix + req.body.payload;
+  }
+
+  if(req.body.payload.match(regex)) {
+    var x = shortId.generate();
+    Link.create({
+      owner: req.connection.remoteAddress,
+      payload: req.body.payload,
+      identifier: x
+    }, function(err, link) {
+      if(err) {
+        res.send('whoops');
+      }
+      res.send(JSON.stringify(link));
+    })
+  }
+  else {
+    res.send('Invalid URL');
+  }
 });
 
 app.get('/:identifier', function(req, res, next) {
-  
+  Link.findOne({ identifier: req.params.identifier }, function(err, link) {
+    if(err) {
+      res.send('whoops');
+    }
+    res.redirect(link.payload);
+  });
 });
 
 // catch 404 and forward to error handler
