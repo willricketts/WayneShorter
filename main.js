@@ -48,7 +48,14 @@ app.post('/shorten', function(req, res, next) {
     b.payload = prefix + b.payload;
   }*/
 
-  if(validator.isURL(b.payload)) {
+  var prefix = 'http://';
+  var ftpPrefix = 'ftp://'
+  if ((req.body.payload.substr(0, prefix.length) !== prefix) || (req.body.payload.substr(0, ftpPrefix.length) !== ftpPrefix))
+  {
+    req.body.payload = prefix + req.body.payload;
+  }
+
+  if(validator.isURL(b.payload, { allow_protocol_relative_urls: true }) || validator.isIP(b.payload)) {
     Link.create({
       owner: req.connection.remoteAddress,
       payload: b.payload,
@@ -77,7 +84,9 @@ app.post('/shorten', function(req, res, next) {
 
 // Consume shortlink
 app.get('/:identifier', function(req, res, next) {
+  console.log(req.params);
   Link.findOne({ identifier: req.params.identifier }, function(err, link) {
+    console.log(link);
     if(err) {
       res.send('whoops');
     }
