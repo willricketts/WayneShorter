@@ -16,6 +16,15 @@
         $("#success").hide();
         $("#failure").hide();
         $("#emptyField").hide();
+
+        $("#field").keypress(function(x) {
+          var key = x.which;
+          if(key == 13) {
+            $("#submit").click();
+            return false;
+          }
+        })
+
         $("#submit").click(function() {
           if($("#field").val() == "") {
             //SUBMITTED EMPTY STRING
