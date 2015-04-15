@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var dburi = require('./config/db');
 var shortId = require('shortid');
 var validator = require('validator');
 var app = express();
@@ -20,9 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Require Helpers
+var dburi = require('./config/db');
+var rateLimitCreate = require('./config/rateLimit');
+
 // Require Schemas
 var Link = require('./schema/Link');
 var Log = require('./schema/Log');
+var Audience = require('./schema/Audience');
 
 // Connect to mongoLab
 var mongoose = require('mongoose');
@@ -54,23 +58,50 @@ app.post('/shorten', function(req, res, next) {
   }
 
   if(validator.isURL(b.payload.toString())) {
-    Link.create({
-      owner: req.connection.remoteAddress,
-      payload: b.payload,
-    }, function(err, link) {
-      if(err) {
-        res.send('whoops: ' + err);
+    rateLimitCreate(req, res, function(audience) {
+      var lastSeen = Date.parse(audience.last_seen);
+      var currentTimestamp = Date.parse(new Date());
+      if(((currentTimestamp - lastSeen) >= 1000) || (currentTimestamp == lastSeen)) {
+        Link.create({
+          owner: req.connection.remoteAddress,
+          payload: b.payload,
+        }, function(err, link) {
+          if(err) {
+            res.send('whoops: ' + err);
+          }
+          else if(!link) {
+            res.send(500);
+          }
+
+          var output = {
+            payload: link.payload,
+            identifier: link.identifier,
+            shortlink: 'http://shrtr.in/' + link.identifier
+          }
+          Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
+            if(err) {
+              res.send('whoops: ' + err);
+            }
+            else if(!audience) {
+              res.send(500);
+            }
+            res.send(JSON.stringify(output));
+          });
+        });
       }
-      else if(!link) {
-        res.send(500);
+      else {
+        Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
+          if(err) {
+            res.send(500);
+          }
+          else if(!audience) {
+            res.send(500);
+          }
+          res.send(JSON.stringify({ error: 'ratelimit'} ));
+        });
       }
-      var output = {
-        payload: link.payload,
-        identifier: link.identifier,
-        shortlink: 'http://shrtr.in/' + link.identifier
-      }
-      res.send(JSON.stringify(output));
-    })
+    });
+
   }
   else {
     Log.create({
