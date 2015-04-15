@@ -16,6 +16,8 @@
         $("#success").hide();
         $("#failure").hide();
         $("#emptyField").hide();
+        $("#lander").hide();
+        $("#lander").fadeIn(900);
 
         $("#field").keypress(function(x) {
           var key = x.which;
@@ -29,7 +31,7 @@
           if($("#field").val() == "") {
             //SUBMITTED EMPTY STRING
             $("#failure").hide();
-            $("#emptyField").show();
+            $("#emptyField").fadeIn();
           }
           else {
             $.ajax({
@@ -41,7 +43,7 @@
               if(data.error) {
                 //BAD URL
                 $("#emptyField").hide();
-                $("#failure").show();
+                $("#failure").fadeIn();
               }
               else {
                 console.log(data);
@@ -51,7 +53,7 @@
                 $("#emptyField").hide();
                 $("#createShortlink").hide();
                 $("#outputField").val(window.location.host + '/' + response.identifier);
-                $("#success").show();
+                $("#success").fadeIn();
                 $("#outputField").on("click", function () {
                   $(this).select();
                 });
@@ -61,11 +63,13 @@
         });
       });
     </script>
-    <h1 id="header"><a href="/"><%= title %></a></h1>
-    <h3 id="tagline">Maestro of <a href="https://www.youtube.com/watch?v=fvRkGglLe-U" target="_blank" style="color: #5848B0;">jazzy</a> shortened URLs<h4>
-    <div id="createShortlink">
-      <input type="text" placeholder="Gimme some notes to play, man!" id="field">
-      <button class="btn btn-large btn-primary" id="submit">Play that Jazz!</button>
+    <div id="lander">
+      <h1 id="header"><a href="/"><%= title %></a></h1>
+      <h3 id="tagline">Maestro of <a href="https://www.youtube.com/watch?v=fvRkGglLe-U" target="_blank" style="color: #5848B0;">jazzy</a> shortened URLs<h4>
+      <div id="createShortlink">
+        <input type="text" placeholder="Gimme some notes to play, man!" id="field">
+        <button class="btn btn-large btn-primary" id="submit">Play that Jazz!</button>
+      </div>
     </div>
 
     <div id="success">
