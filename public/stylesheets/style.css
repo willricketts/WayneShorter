@@ -63,7 +63,7 @@ a:hover {
 
 #header {
   font-family: 'Sacramento', cursive;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   font-size: 102px;
 }
 
@@ -92,4 +92,11 @@ a:hover {
   margin-top: 50px;
   margin-left: 40px;
   width: 550px;
+}
+
+#tagline {
+  font-family: 'Sanchez', serif;
+  font-size: 24px;
+  margin-left: 90px;
+  margin-bottom: 50px;
 }
