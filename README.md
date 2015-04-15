@@ -13,6 +13,13 @@ When passed URLencoded form data, WayneShorter creates and returns an 8th note s
 ```
 http://ws.is/:identifier
 ```
+Go ahead and give it a good cURL'n!
+
+`curl --data "payload=http://google.com" http://shrtr.in/shorten`
+
+RESPONSE:
+
+`{"payload":"http://google.com","identifier":"NksNRPPW","shortlink":"http://shrtr.in/NksNRPPW"}`
 
 ### GET /:identifier
 When accessed, by its short identifier, the newly created shortlink whisks you away in a flurry of notes to the shortlink's destination.
