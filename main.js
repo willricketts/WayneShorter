@@ -97,7 +97,19 @@ app.post('/shorten', function(req, res, next) {
           else if(!audience) {
             res.send(500);
           }
-          res.send(JSON.stringify({ error: 'ratelimit'} ));
+          Log.create({
+            origin: req.connection.remoteAddress,
+            type: 'rateLimit',
+            message: 'User was rate limited'
+          }, function(err, log) {
+            if(err) {
+              res.send(500);
+            }
+            else if(!log) {
+              res.send(500);
+            }
+            res.send(JSON.stringify({ error: 'ratelimit'} ));
+          });
         });
       }
     });
@@ -106,6 +118,7 @@ app.post('/shorten', function(req, res, next) {
   else {
     Log.create({
       origin: req.connection.remoteAddress,
+      type: 'invalidUrl',
       message: 'Invalid URL submitted: ' + b.payload
     }, function(err, log) {
       if(err) {

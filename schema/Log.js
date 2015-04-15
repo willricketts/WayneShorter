@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var LogSchema = new mongoose.Schema({
   origin: String,
+  type: String,
   message: String,
   created_at: {
     type: Date,
