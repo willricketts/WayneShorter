@@ -64,7 +64,12 @@ app.post('/shorten', function(req, res, next) {
       else if(!link) {
         res.send(500);
       }
-      res.send(JSON.stringify(link));
+      var output = {
+        payload: link.payload,
+        identifier: link.identifier,
+        shortlink: 'http://shrtr.in/' + link.identifier
+      }
+      res.send(JSON.stringify(output));
     })
   }
   else {
