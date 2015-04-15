@@ -78,6 +78,7 @@ a:hover {
   margin-top: 50px;
   margin-left: 40px;
   width: 550px;
+  font-size: 32px;
 }
 
 #failure {
@@ -85,6 +86,7 @@ a:hover {
   margin-top: 50px;
   margin-left: 40px;
   width: 550px;
+  font-size: 32px;
 }
 
 #emptyField {
@@ -92,6 +94,7 @@ a:hover {
   margin-top: 50px;
   margin-left: 40px;
   width: 550px;
+  font-size: 32px;
 }
 
 #tagline {
