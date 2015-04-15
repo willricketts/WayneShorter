@@ -42,6 +42,12 @@
               console.log(data);
               if(data.error) {
                 //BAD URL
+                if(data.error == 'rateLimit') {
+                  $("#error").text('Slow down, man! I can\'t play that fast!');
+                }
+                else if(data.error == 'serverError') {
+                  $("#error").text('Something\'s wrong with my sax. Try giving me some notes again.');
+                }
                 $("#emptyField").hide();
                 $("#failure").fadeIn();
               }
@@ -78,7 +84,7 @@
     </div>
 
     <div id="failure">
-      <h2>Aww come on man. Looks like you gave me a bad URL to play.</h2>
+      <h2 id="error">Aww come on man. Looks like you gave me a bad URL to play.</h2>
     </div>
 
     <div id="emptyField">

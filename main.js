@@ -28,6 +28,9 @@ var Link = require('./schema/Link');
 var Log = require('./schema/Log');
 var Audience = require('./schema/Audience');
 
+// Default error
+var genericError = JSON.stringify({ error: 'serverError' });
+
 // Connect to mongoLab
 var mongoose = require('mongoose');
 mongoose.connect(dburi, function(err) {
@@ -67,10 +70,10 @@ app.post('/shorten', function(req, res, next) {
           payload: b.payload,
         }, function(err, link) {
           if(err) {
-            res.send('whoops: ' + err);
+            res.send(genericError);
           }
           else if(!link) {
-            res.send(500);
+            res.send(genericError);
           }
 
           var output = {
@@ -80,10 +83,10 @@ app.post('/shorten', function(req, res, next) {
           }
           Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
             if(err) {
-              res.send('whoops: ' + err);
+              res.send(genericError);
             }
             else if(!audience) {
-              res.send(500);
+              res.send(genericError);
             }
             res.send(JSON.stringify(output));
           });
@@ -92,10 +95,10 @@ app.post('/shorten', function(req, res, next) {
       else {
         Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
           if(err) {
-            res.send(500);
+            res.send(genericError);
           }
           else if(!audience) {
-            res.send(500);
+            res.send(genericError);
           }
           Log.create({
             origin: req.connection.remoteAddress,
@@ -103,12 +106,12 @@ app.post('/shorten', function(req, res, next) {
             message: 'User was rate limited'
           }, function(err, log) {
             if(err) {
-              res.send(500);
+              res.send(genericError);
             }
             else if(!log) {
-              res.send(500);
+              res.send(genericError);
             }
-            res.send(JSON.stringify({ error: 'ratelimit'} ));
+            res.send(JSON.stringify({ error: 'rateLimit' } ));
           });
         });
       }
@@ -122,9 +125,9 @@ app.post('/shorten', function(req, res, next) {
       message: 'Invalid URL submitted: ' + b.payload
     }, function(err, log) {
       if(err) {
-        res.send('whoops');
+        res.send(genericError);
       }
-      res.json({ error: 'Invalid URL' });
+      res.json({ error: 'invalidUrl' });
     });
   }
 });
@@ -133,7 +136,7 @@ app.post('/shorten', function(req, res, next) {
 app.get('/:identifier', function(req, res, next) {
   Link.findOne({ identifier: req.params.identifier }, function(err, link) {
     if(err) {
-      res.send('whoops');
+      res.send(genericError);
     }
     if(!link) {
       res.redirect('/');
