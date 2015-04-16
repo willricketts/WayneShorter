@@ -8,6 +8,11 @@ WayneShorter's headlining performance is made possible by the magic of Node.js a
 ---
 
 ##Routes
+
+###GET /
+
+Just a splash view of the legendary Wayne Shorter.
+
 ###POST /shorten
 When passed URLencoded form data, WayneShorter creates and returns an 8th note sized link in the following way:
 ```
