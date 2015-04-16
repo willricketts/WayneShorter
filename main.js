@@ -66,7 +66,7 @@ app.post('/shorten', function(req, res, next) {
       var currentTimestamp = Date.parse(new Date());
       if(((currentTimestamp - lastSeen) >= 1000) || (currentTimestamp == lastSeen)) {
         Link.create({
-          owner: req.connection.remoteAddress,
+          owner: req.headers['X-Forwarded-For'],
           payload: b.payload,
         }, function(err, link) {
           if(err) {
@@ -81,7 +81,7 @@ app.post('/shorten', function(req, res, next) {
             identifier: link.identifier,
             shortlink: 'http://shrtr.in/' + link.identifier
           }
-          Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
+          Audience.findOneAndUpdate({ owner: req.headers['X-Forwarded-For'] }, { last_seen: currentTimestamp }, function(err, audience) {
             if(err) {
               res.send(genericError);
             }
@@ -93,7 +93,7 @@ app.post('/shorten', function(req, res, next) {
         });
       }
       else {
-        Audience.findOneAndUpdate({ owner: req.connection.remoteAddress }, { last_seen: currentTimestamp }, function(err, audience) {
+        Audience.findOneAndUpdate({ owner: req.headers['X-Forwarded-For'] }, { last_seen: currentTimestamp }, function(err, audience) {
           if(err) {
             res.send(genericError);
           }
@@ -101,7 +101,7 @@ app.post('/shorten', function(req, res, next) {
             res.send(genericError);
           }
           Log.create({
-            origin: req.connection.remoteAddress,
+            origin: req.headers['X-Forwarded-For'],
             type: 'rateLimit',
             message: 'User was rate limited'
           }, function(err, log) {
@@ -120,7 +120,7 @@ app.post('/shorten', function(req, res, next) {
   }
   else {
     Log.create({
-      origin: req.connection.remoteAddress,
+      origin: req.headers['X-Forwarded-For'],
       type: 'invalidUrl',
       message: 'Invalid URL submitted: ' + b.payload
     }, function(err, log) {
