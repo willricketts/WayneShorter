@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//allow for remoteAddress elasticBeanstalk passthrough
+app.enable('trust proxy');
+
 // Require Helpers
 var dburi = require('./config/db');
 var rateLimitCreate = require('./config/rateLimit');
@@ -66,7 +69,7 @@ app.post('/shorten', function(req, res, next) {
       var currentTimestamp = Date.parse(new Date());
       if(((currentTimestamp - lastSeen) >= 1000) || (currentTimestamp == lastSeen)) {
         Link.create({
-          owner: req.headers['X-Forwarded-For'],
+          owner: req.ip,
           payload: b.payload,
         }, function(err, link) {
           if(err) {
@@ -81,7 +84,7 @@ app.post('/shorten', function(req, res, next) {
             identifier: link.identifier,
             shortlink: 'http://shrtr.in/' + link.identifier
           }
-          Audience.findOneAndUpdate({ owner: req.headers['X-Forwarded-For'] }, { last_seen: currentTimestamp }, function(err, audience) {
+          Audience.findOneAndUpdate({ owner: req.ip }, { last_seen: currentTimestamp }, function(err, audience) {
             if(err) {
               res.send(genericError);
             }
@@ -93,7 +96,7 @@ app.post('/shorten', function(req, res, next) {
         });
       }
       else {
-        Audience.findOneAndUpdate({ owner: req.headers['X-Forwarded-For'] }, { last_seen: currentTimestamp }, function(err, audience) {
+        Audience.findOneAndUpdate({ owner: req.ip }, { last_seen: currentTimestamp }, function(err, audience) {
           if(err) {
             res.send(genericError);
           }
@@ -101,7 +104,7 @@ app.post('/shorten', function(req, res, next) {
             res.send(genericError);
           }
           Log.create({
-            origin: req.headers['X-Forwarded-For'],
+            origin: req.ip,
             type: 'rateLimit',
             message: 'User was rate limited'
           }, function(err, log) {
@@ -120,7 +123,7 @@ app.post('/shorten', function(req, res, next) {
   }
   else {
     Log.create({
-      origin: req.headers['X-Forwarded-For'],
+      origin: req.ip,
       type: 'invalidUrl',
       message: 'Invalid URL submitted: ' + b.payload
     }, function(err, log) {
