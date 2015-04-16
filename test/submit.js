@@ -33,7 +33,7 @@ describe('submission and consumption', function() {
       request.post( 'http://localhost:3000/shorten', { form: post3 }, function(err, res, body) {
         should.not.exist(err);
         var response = JSON.parse(res.body);
-        response.error.should.equal('Invalid URL');
+        response.error.should.equal('invalidUrl');
         done();
       });
     })
