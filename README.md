@@ -16,7 +16,7 @@ Just a splash view of the legendary Wayne Shorter.
 ###POST /shorten
 When passed URLencoded form data, WayneShorter creates and returns an 8th note sized link in the following way:
 ```
-http://ws.is/:identifier
+http://shrtr.in/:identifier
 ```
 Go ahead and give it a good cURL'n!
 
