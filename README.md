@@ -44,3 +44,6 @@ RESPONSE:
 
 ### GET /:identifier
 When accessed, by its short identifier, the newly created shortlink whisks you away in a flurry of notes to the shortlink's destination.
+
+## Who the hell is Wayne Shorter?
+[Only one of the greatest Jazz musicians ever!](https://en.wikipedia.org/wiki/Wayne_Shorter)
