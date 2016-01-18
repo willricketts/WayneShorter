@@ -9,8 +9,22 @@ WayneShorter's headlining performance is made possible by the magic of Node.js a
 ---
 
 ## Running Locally
-To get WayneShorter running locally for a private performance, simply give him the starting cue of `npm install` followed by `npm start`.
+To get WayneShorter running locally for a private performance, simply give him the starting cue:
 
+Clone:
+```
+git clone git@github.com:willricketts/WayneShorter.git
+```
+
+Install deps:
+```
+npm install
+```
+
+Play that jazz:
+```
+npm start
+```
 ---
 
 
