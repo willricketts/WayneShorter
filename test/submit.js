@@ -1,10 +1,18 @@
 var assert = require('assert'),
     should = require('should'),
     request = require('request'),
-    routes = require('../main');
+    routes = require('../main'),
+    server = require('../bin/www');
 
 describe('submission and consumption', function() {
   describe('Submit Link', function() {
+    beforeEach(function(){
+      server.listen(3000);
+    });
+
+    afterEach(function(){
+      server.close();
+    });
     var post1 = { payload: 'http://google.com' }
 
     var post2 = { payload: 'google.com' }
