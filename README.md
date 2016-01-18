@@ -11,6 +11,7 @@ WayneShorter's headlining performance is made possible by the magic of Node.js a
 * `db_user`
 * `db_host`
 * `db_pass`
+* `db`
 
 
 ---
