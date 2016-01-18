@@ -16,6 +16,20 @@ Clone:
 git clone git@github.com:willricketts/WayneShorter.git
 ```
 
+Install services:
+
+*OS X*
+```
+brew install mongodb && brew install nodejs
+```
+
+*Ubuntu*
+```
+sudo apt-get install mongodb
+sudo add-apt-repository ppa:chris-lea/node.js 
+sudo apt-get update
+sudo apt-get install nodejs
+```
 Install deps:
 ```
 npm install
@@ -25,6 +39,13 @@ Play that jazz:
 ```
 npm start
 ```
+
+By default, WayneShorter runs in the key of port `3000`, but if you'd like to run on a different port, simply let him know:
+
+```
+PORT=1337 npm start
+```
+
 ---
 
 
