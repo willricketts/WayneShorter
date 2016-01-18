@@ -29,10 +29,12 @@ npm start
 
 
 ## Environment Variables
-* `db_user`
-* `db_host`
-* `db_pass`
-* `db`
+```
+db_user
+db_host
+db_pass
+db
+```
 
 
 ---
