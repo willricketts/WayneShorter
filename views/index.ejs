@@ -58,7 +58,7 @@
                 $("#failure").hide();
                 $("#emptyField").hide();
                 $("#createShortlink").hide();
-                $("#outputField").val(window.location.host + '/' + response.identifier);
+                $("#outputField").val('http://' + window.location.host + '/' + response.identifier);
                 $("#success").fadeIn();
                 $("#outputField").on("click", function () {
                   $(this).select();
