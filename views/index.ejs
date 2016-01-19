@@ -39,7 +39,6 @@
               url: 'shorten',
               data: { payload: $('#field').val() },
             }).done(function(data) {
-              console.log(data);
               if(data.error) {
                 //BAD URL
                 if(data.error == 'rateLimit') {
@@ -52,7 +51,6 @@
                 $("#failure").fadeIn();
               }
               else {
-                console.log(data);
                 //GOOD URL
                 var response = JSON.parse(data);
                 $("#failure").hide();
