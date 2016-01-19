@@ -1,4 +1,4 @@
-#WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter)
+#WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter) [![Dependency Status](https://david-dm.org/willricketts/wayneshorter.svg)](https://david-dm.org/willricketts/wayneshorter)
 
 ![](http://i.imgur.com/6JBw8jW.png)
 
