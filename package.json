@@ -1,11 +1,28 @@
 {
-  "name": "wayneShorter",
-  "version": "0.0.0",
+  "name": "wayneshorter",
+  "version": "0.2.0",
+  "description": "Link shortener service",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "test": "mocha ./test/"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/willricketts/WayneShorter.git"
+  },
+  "keywords": [
+    "url",
+    "shortener",
+    "shortlink",
+    "wayneshorter"
+  ],
+  "author": "@willricketts",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/willricketts/WayneShorter/issues"
+  },
+  "homepage": "https://github.com/willricketts/WayneShorter#readme",
   "dependencies": {
     "body-parser": "~1.14.2",
     "cookie-parser": "~1.4.1",
