@@ -1,4 +1,4 @@
-#WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter) [![Dependency Status](https://david-dm.org/willricketts/wayneshorter.svg)](https://david-dm.org/willricketts/wayneshorter)
+#WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter) [![Dependency Status](https://david-dm.org/willricketts/wayneshorter.svg)](https://david-dm.org/willricketts/wayneshorter) ![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
 
 ![](http://i.imgur.com/6JBw8jW.png)
 
