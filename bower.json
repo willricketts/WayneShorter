@@ -1,0 +1,29 @@
+{
+  "name": "wayneshorter",
+  "description": "Link shortener service",
+  "main": "",
+  "authors": [
+    "@willricketts"
+  ],
+  "license": "GPL-3.0",
+  "keywords": [
+    "url",
+    "shortener",
+    "shortlink",
+    "wayneshorter"
+  ],
+  "homepage": "https://github.com/willricketts/WayneShorter",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.0",
+    "bootstrap": "^3.3.6"
+  }
+}
