@@ -1,4 +1,4 @@
-#WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter) [![Dependency Status](https://david-dm.org/willricketts/wayneshorter.svg)](https://david-dm.org/willricketts/wayneshorter) ![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
+# WayneShorter [![Build Status](https://travis-ci.org/willricketts/WayneShorter.svg?branch=master)](https://travis-ci.org/willricketts/WayneShorter) [![Dependency Status](https://david-dm.org/willricketts/wayneshorter.svg)](https://david-dm.org/willricketts/wayneshorter) ![License](https://img.shields.io/badge/license-GPLv3-blue.svg)
 
 ![](http://i.imgur.com/6JBw8jW.png)
 
@@ -60,13 +60,13 @@ db
 
 ---
 
-##Routes
+## Routes
 
-###GET /
+### GET /
 
 Just a splash view of the legendary Wayne Shorter.
 
-###POST /shorten
+### POST /shorten
 When passed URLencoded form data, WayneShorter creates and returns an 8th note sized link in the following way:
 ```
 http://shrtr.in/:identifier
